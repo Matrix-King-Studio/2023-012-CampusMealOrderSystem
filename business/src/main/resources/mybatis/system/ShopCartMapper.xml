@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.mapper.ShopCartMapper">
+
+    <resultMap type="ShopCart" id="ShopCartResult">
+        <result property="shopCartId"    column="shop_cart_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productPrice"    column="product_price"    />
+        <result property="productPicture"    column="product_picture"    />
+        <result property="description"    column="description"    />
+        <result property="buyerId"    column="buyer_id"    />
+        <result property="buyerName"    column="buyer_name"    />
+        <result property="type"    column="type"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="productFlavour"    column="product_flavour"    />
+        <result property="shopNum"    column="shop_num"    />
+    </resultMap>
+
+    <sql id="selectShopCartVo">
+        select shop_cart_id, product_id, product_name, product_price, product_picture, description, buyer_id, buyer_name, type, status, create_by, create_time, update_by, update_time, remark, business_id, business_name, product_flavour,shop_num from shop_cart
+    </sql>
+
+    <select id="selectShopCartList" parameterType="ShopCart" resultMap="ShopCartResult">
+        <include refid="selectShopCartVo"/>
+        <where>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="buyerId != null "> and buyer_id = #{buyerId}</if>
+            <if test="buyerName != null  and buyerName != ''"> and buyer_name like concat('%', #{buyerName}, '%')</if>
+            <if test="businessId != null "> and business_id = #{businessId}</if>
+            <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
+            <if test="productFlavour != null "> and product_flavour = #{productFlavour}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+        </where>
+    </select>
+
+    <select id="selectShopCartByShopCartId" parameterType="Integer" resultMap="ShopCartResult">
+        <include refid="selectShopCartVo"/>
+        where shop_cart_id = #{shopCartId}
+    </select>
+
+    <insert id="insertShopCart" parameterType="ShopCart" useGeneratedKeys="true" keyProperty="shopCartId">
+        insert into shop_cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="productPrice != null">product_price,</if>
+            <if test="productPicture != null">product_picture,</if>
+            <if test="description != null">description,</if>
+            <if test="buyerId != null">buyer_id,</if>
+            <if test="buyerName != null">buyer_name,</if>
+            <if test="type != null">type,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="businessName != null">business_name,</if>
+            <if test="productFlavour != null">product_flavour,</if>
+            <if test="shopNum != null">shop_num,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="productPrice != null">#{productPrice},</if>
+            <if test="productPicture != null">#{productPicture},</if>
+            <if test="description != null">#{description},</if>
+            <if test="buyerId != null">#{buyerId},</if>
+            <if test="buyerName != null">#{buyerName},</if>
+            <if test="type != null">#{type},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="businessName != null">#{businessName},</if>
+            <if test="productFlavour != null">#{productFlavour},</if>
+            <if test="shopNum != null">#{shopNum},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShopCart" parameterType="ShopCart">
+        update shop_cart
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="productPrice != null">product_price = #{productPrice},</if>
+            <if test="productPicture != null">product_picture = #{productPicture},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="buyerId != null">buyer_id = #{buyerId},</if>
+            <if test="buyerName != null">buyer_name = #{buyerName},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="businessName != null">business_name = #{businessName},</if>
+            <if test="productFlavour != null">product_flavour = #{productFlavour},</if>
+            <if test="shopNum != null">shop_num = #{shopNum},</if>
+        </trim>
+        where shop_cart_id = #{shopCartId}
+    </update>
+
+    <delete id="deleteShopCartByShopCartId" parameterType="Integer">
+        delete from shop_cart where shop_cart_id = #{shopCartId}
+    </delete>
+
+    <delete id="deleteShopCartByShopCartIds" parameterType="String">
+        delete from shop_cart where shop_cart_id in
+        <foreach item="shopCartId" collection="array" open="(" separator="," close=")">
+            #{shopCartId}
+        </foreach>
+    </delete>
+</mapper>
